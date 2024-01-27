@@ -1,0 +1,5 @@
+flask
+ariadne
+flask-cors
+mongoengine
+pymongo
