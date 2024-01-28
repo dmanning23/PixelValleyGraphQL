@@ -3,3 +3,4 @@ ariadne
 flask-cors
 mongoengine
 pymongo
+py-linq
