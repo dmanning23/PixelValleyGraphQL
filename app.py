@@ -1,19 +1,22 @@
 from api import app
 from ariadne import load_schema_from_path, make_executable_schema, \
-    graphql_sync, snake_case_fallback_resolvers, ObjectType
+    graphql_sync, ObjectType
 from minimal import PLAYGROUND_HTML
 from flask import request, jsonify
 
 from api.queries.scenariosResolver import getScenarios_resolver
 from api.queries.scenarioResolver import getScenario_resolver
 
+from api.queries.locationsResolver import getLocations_resolver
+
 query = ObjectType("Query")
 query.set_field("scenarios", getScenarios_resolver)
 query.set_field("scenario", getScenario_resolver)
+query.set_field("locations", getLocations_resolver)
 
 type_defs = load_schema_from_path("schema.graphql")
 schema = make_executable_schema(
-    type_defs, query, snake_case_fallback_resolvers
+    type_defs, query
 )
 
 @app.route("/graphql", methods=["GET"])

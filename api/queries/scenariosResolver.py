@@ -1,7 +1,7 @@
 from ariadne import convert_kwargs_to_snake_case
 from api.models.scenarioModel import ScenarioModel
 
-@convert_kwargs_to_snake_case
+
 def getScenarios_resolver(obj, info):
     try:
         #get the scenario from mongodb

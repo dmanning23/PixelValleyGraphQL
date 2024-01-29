@@ -14,6 +14,12 @@ type ScenarioResult {
     scenario: Scenario
 }
 
+type LocationsResult {
+    success: Boolean!
+    errors: [String]
+    locations: [Location]
+}
+
 type Scenario {
     _id: ID!
     name: String!
@@ -21,11 +27,13 @@ type Scenario {
     currentDateTime: String!
     seed: String!
     imageFilename: String!
+    locations: [Location]
 }
 
 type Location {
     _id: ID!
     scenarioId: ID!
+    parentLocationId: ID!
     name: String!
     description: String!
     imageFilename: String!
@@ -35,4 +43,5 @@ type Location {
 type Query {
     scenarios: ScenariosResult
     scenario(id: ID!): ScenarioResult
+    locations(scenarioId: ID!, parentLocationId: ID): LocationsResult
 }
