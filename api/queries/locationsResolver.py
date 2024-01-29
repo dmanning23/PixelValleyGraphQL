@@ -1,13 +1,10 @@
 from api.models.locationModel import LocationModel
 
-def getLocations_resolver(obj, info, scenarioId, parentLocationId=None):
+def getLocationResults_resolver(obj, info, scenarioId=None, parentLocationId=None):
     try:
-        #get the scenario from mongodb
-        models = LocationModel.objects(scenarioId=scenarioId, parentLocationId=parentLocationId)
-        locations = [location.to_dict() for location in models]
         payload = {
             "success": True,
-            "locations": locations
+            "locations": getLocations_resolver(obj, info, scenarioId, parentLocationId)
         }
     except Exception as error:
         payload = {
@@ -15,3 +12,11 @@ def getLocations_resolver(obj, info, scenarioId, parentLocationId=None):
             "errors": [str(error)]
         }
     return payload
+
+def getLocations_resolver(obj, info, scenarioId=None, parentLocationId=None):
+    #Check if this is coming from the Scenario resolver
+    if obj is not None:
+        scenarioId = obj["_id"]
+    models = LocationModel.objects(scenarioId=scenarioId, parentLocationId=parentLocationId)
+    locations = [location.to_dict() for location in models]
+    return locations
