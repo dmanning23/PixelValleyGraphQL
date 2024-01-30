@@ -20,6 +20,24 @@ type LocationsResult {
     locations: [Location]
 }
 
+type LocationResult {
+    success: Boolean!
+    errors: [String]
+    location: Location
+}
+
+type AgentsResult {
+    success: Boolean!
+    errors: [String]
+    agents: [Agent]
+}
+
+type AgentResult {
+    success: Boolean!
+    errors: [String]
+    agent: Agent
+}
+
 type Scenario {
     _id: ID!
     name: String!
@@ -28,6 +46,7 @@ type Scenario {
     seed: String!
     imageFilename: String!
     locations: [Location]
+    agents: [Agent]
 }
 
 type Location {
@@ -38,10 +57,39 @@ type Location {
     description: String!
     imageFilename: String!
     resizedImageFilename: String!
+    agents: [Agent]
+    allAgents: [Agent]
+}
+
+type Agent {
+    _id: ID!
+    scenarioId: ID!
+    locationId: ID
+    name: String!
+    age: Int
+    gender: String!
+    description: String!
+    currentTime: Int
+    status: String!
+    emoji: String!
+    agentDescription: AgentDescription
+}
+
+type AgentDescription {
+    _id: ID!
+    agentId: ID!
+    portraitFilename: String
+    iconFilename: String
+    resizedIconFilename: String
+    chibiFilename: String
+    resizedChibiFilename: String
 }
 
 type Query {
     scenarios: ScenariosResult
     scenario(id: ID!): ScenarioResult
     locations(scenarioId: ID!, parentLocationId: ID): LocationsResult
+    location(id: ID!): LocationResult
+    agents(scenarioId: ID, locationId: ID): AgentsResult
+    agent(id: ID!): AgentResult
 }

@@ -1,5 +1,5 @@
 from mongoengine import *
-from Models.finiteStateMachineModel import FiniteStateMachineModel
+from api.models.finiteStateMachineModel import FiniteStateMachineModel
 
 class BaseItemModel():
     name = StringField()

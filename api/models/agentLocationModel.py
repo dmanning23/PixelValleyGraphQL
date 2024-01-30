@@ -1,4 +1,3 @@
-from Models.itemModel import ItemSubModel
 from mongoengine import *
 
 class AgentLocationModel(Document):

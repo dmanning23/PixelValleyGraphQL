@@ -20,3 +20,23 @@ def getLocations_resolver(obj, info, scenarioId=None, parentLocationId=None):
     models = LocationModel.objects(scenarioId=scenarioId, parentLocationId=parentLocationId)
     locations = [location.to_dict() for location in models]
     return locations
+
+def getLocation_resolver(obj, info, id):
+    try:
+        #get the scenario from mongodb
+        model = LocationModel.objects.get(id=id)
+        payload = {
+            "success": True,
+            "location": model.to_dict()
+        }
+    except AttributeError:
+        payload = {
+            "success": False,
+            "errors": ["Location item matching {id} not found"]
+        }
+    except Exception as error:
+        payload = {
+            "success": False,
+            "errors": [str(error)]
+        }
+    return payload
