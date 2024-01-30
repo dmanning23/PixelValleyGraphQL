@@ -1,6 +1,7 @@
 from api.models.agentModel import AgentModel
 from api.models.agentLocationModel import AgentLocationModel
 from api.models.agentDescriptionModel import AgentDescriptionModel
+from api.models.locationModel import LocationModel
 
 def getAgentResults_resolver(obj, info, scenarioId=None, locationId=None):
     if locationId:
@@ -38,6 +39,27 @@ def getLocationAgents_resolver(obj, info, locationId=None):
     models = []
     for agentLocation in agentLocations:
         models.append(AgentModel.objects.get(id=agentLocation.agentId))
+    agents = [agent.to_dict() for agent in models]
+    return agents
+
+def getLocationAllAgents_resolver(obj, info, locationId=None):
+    #Check if this is coming from the Location resolver
+    if obj is not None:
+        locationId = obj["_id"]
+
+    #These are all the agents in the location
+    agentLocations = AgentLocationModel.objects(locationId=locationId)
+    models = []
+    for agentLocation in agentLocations:
+        models.append(AgentModel.objects.get(id=agentLocation.agentId))
+
+    #Get all the sub locations
+    subLocations = LocationModel.objects(parentLocationId=locationId)
+    for subLocation in subLocations:
+        agentSubLocations = AgentLocationModel.objects(locationId=subLocation.id)
+        for agentSubLocation in agentSubLocations:
+            models.append(AgentModel.objects.get(id=agentSubLocation.agentId))
+    
     agents = [agent.to_dict() for agent in models]
     return agents
 

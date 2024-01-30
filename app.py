@@ -16,6 +16,7 @@ from api.queries.agentResolver import getLocationAgents_resolver
 from api.queries.agentResolver import getAgentResults_resolver
 from api.queries.agentResolver import getAgent_resolver
 from api.queries.agentResolver import getAgentDescription_resolver
+from api.queries.agentResolver import getLocationAllAgents_resolver
 
 query = ObjectType("Query")
 query.set_field("scenarios", getScenarios_resolver)
@@ -31,13 +32,14 @@ scenarios.set_field("agents", getScenarioAgents_resolver)
 
 locations = ObjectType("Location")
 locations.set_field("agents", getLocationAgents_resolver)
+locations.set_field("allAgents", getLocationAllAgents_resolver)
 
-locations = ObjectType("Agent")
-locations.set_field("agentDescription", getAgentDescription_resolver)
+agents = ObjectType("Agent")
+agents.set_field("agentDescription", getAgentDescription_resolver)
 
 type_defs = load_schema_from_path("schema.graphql")
 schema = make_executable_schema(
-    type_defs, [ query, scenarios, locations ]
+    type_defs, [ query, scenarios, locations, agents ]
 )
 
 @app.route("/graphql", methods=["GET"])
