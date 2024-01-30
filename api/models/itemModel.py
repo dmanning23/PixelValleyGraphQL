@@ -53,10 +53,9 @@ class BaseItemModel():
             item.stateMachine = self.stateMachine.Hydrate()
 
         return item
-    
+'''
 class ItemModel(BaseItemModel, Document):
     pass
 
 class ItemSubModel(BaseItemModel, EmbeddedDocument):
     pass
-'''
