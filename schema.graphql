@@ -47,6 +47,7 @@ type Scenario {
     imageFilename: String!
     locations: [Location]
     agents: [Agent]
+    outsideAgents: [Agent]
 }
 
 type Location {
@@ -70,8 +71,8 @@ type Agent {
     gender: String!
     description: String!
     currentTime: Int
-    status: String!
-    emoji: String!
+    status: String
+    emoji: String
     agentDescription: AgentDescription
 }
 

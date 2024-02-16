@@ -12,6 +12,7 @@ from api.queries.locationResolver import getLocations_resolver
 from api.queries.locationResolver import getLocation_resolver
 
 from api.queries.agentResolver import getScenarioAgents_resolver
+from api.queries.agentResolver import getScenarioOutsideAgents_resolver
 from api.queries.agentResolver import getLocationAgents_resolver
 from api.queries.agentResolver import getAgentResults_resolver
 from api.queries.agentResolver import getAgent_resolver
@@ -29,6 +30,7 @@ query.set_field("agent", getAgent_resolver)
 scenarios = ObjectType("Scenario")
 scenarios.set_field("locations", getLocations_resolver)
 scenarios.set_field("agents", getScenarioAgents_resolver)
+scenarios.set_field("outsideAgents", getScenarioOutsideAgents_resolver)
 
 locations = ObjectType("Location")
 locations.set_field("agents", getLocationAgents_resolver)

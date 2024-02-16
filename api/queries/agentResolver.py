@@ -31,6 +31,17 @@ def getScenarioAgents_resolver(obj, info, scenarioId=None):
     agents = [agent.to_dict() for agent in models]
     return agents
 
+def getScenarioOutsideAgents_resolver(obj, info, scenarioId=None):
+    #Check if this is coming from the Scenario resolver
+    if obj is not None:
+        scenarioId = obj["_id"]
+    agentLocations = AgentLocationModel.objects(homeScenarioId=scenarioId, locationId=None)
+    models = []
+    for agentLocation in agentLocations:
+        models.append(AgentModel.objects.get(id=agentLocation.agentId))
+    agents = [agent.to_dict() for agent in models]
+    return agents
+
 def getLocationAgents_resolver(obj, info, locationId=None):
     #Check if this is coming from the Location resolver
     if obj is not None:
