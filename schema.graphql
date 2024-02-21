@@ -58,8 +58,11 @@ type Location {
     description: String!
     imageFilename: String!
     resizedImageFilename: String!
+    imageInteriorFilename: String!
+    resizedImageInteriorFilename: String!
     agents: [Agent]
     allAgents: [Agent]
+    locations: [Location]
 }
 
 type Agent {

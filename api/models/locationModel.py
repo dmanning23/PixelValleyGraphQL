@@ -8,6 +8,8 @@ class LocationModel(Document):
     description = StringField()
     imageFilename = StringField()
     resizedImageFilename = StringField()
+    imageInteriorFilename = StringField()
+    resizedImageInteriorFilename = StringField()
 
     def to_dict(self):
         return {
@@ -19,4 +21,6 @@ class LocationModel(Document):
             "description": self.description,
             "imageFilename": self.imageFilename,
             "resizedImageFilename": self.resizedImageFilename,
+            "imageInteriorFilename": self.imageInteriorFilename,
+            "resizedImageInteriorFilename": self.resizedImageInteriorFilename,
         }
