@@ -44,7 +44,7 @@ type Scenario {
     description: String!
     currentDateTime: String!
     seed: String!
-    imageFilename: String!
+    imageFilename: String
     locations: [Location]
     agents: [Agent]
     outsideAgents: [Agent]
@@ -56,10 +56,10 @@ type Location {
     parentLocationId: ID!
     name: String!
     description: String!
-    imageFilename: String!
-    resizedImageFilename: String!
-    imageInteriorFilename: String!
-    resizedImageInteriorFilename: String!
+    imageFilename: String
+    resizedImageFilename: String
+    imageInteriorFilename: String
+    resizedImageInteriorFilename: String
     agents: [Agent]
     allAgents: [Agent]
     locations: [Location]
