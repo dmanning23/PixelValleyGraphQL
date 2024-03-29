@@ -16,46 +16,24 @@ class BaseItemModel():
 
     status = StringField()
     emoji = StringField()
-'''
-    def Set(self,
-            item,
-            locationId=None,
-            usingCharacterId=None):
-        if hasattr(item, "_id"):
-            self.id=item._id
-        self.name = item.name
-        self.description = item.description
-        self.canInteract = item.canInteract
-        self.canBePickedUp = item.canBePickedUp
-        self.locationId=locationId
-        self.usingCharacterId = usingCharacterId
-        self.status = item.status
-        self.emoji = item.emoji
 
-        #the state machine has to be set up separately
-        if item.stateMachine is not None:
-            self.stateMachine = FiniteStateMachineModel()
-            self.stateMachine.Set(item.stateMachine)
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "description": self.description,
+            "canInteract": self.canInteract,
+            "canBePickedUp": self.canBePickedUp,
+            #"stateMachine": self.stateMachine,
+            "locationId": self.locationId,
+            "usingCharacterId": self.usingCharacterId,
+            "status": self.status,
+            "emoji": self.emoji,
+        }
 
-    def Hydrate(self):
-        id = None
-        if hasattr(self, "id"):
-            id=self.id
-        item = Item(self.name,
-                    self.description,
-                    self.canInteract,
-                    self.canBePickedUp,
-                    _id = id,
-                    status = self.status,
-                    emoji = self.emoji)
-        
-        if self.stateMachine is not None:
-            item.stateMachine = self.stateMachine.Hydrate()
-
-        return item
-'''
 class ItemModel(BaseItemModel, Document):
-    pass
+    def to_dict(self):
+        return BaseItemModel.to_dict(self) | {"_id": self.id,}
 
 class ItemSubModel(BaseItemModel, EmbeddedDocument):
-    pass
+    def to_dict(self):
+        return BaseItemModel.to_dict(self)

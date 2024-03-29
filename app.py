@@ -18,6 +18,11 @@ from api.queries.agentResolver import getAgentResults_resolver
 from api.queries.agentResolver import getAgent_resolver
 from api.queries.agentResolver import getAgentDescription_resolver
 from api.queries.agentResolver import getLocationAllAgents_resolver
+from api.queries.itemResolver import getItem_resolver
+from api.queries.itemResolver import getLocationItems_resolver
+from api.queries.itemResolver import getAgentItems_resolver
+from api.queries.goalResolver import getGoal_resolver
+from api.queries.goalResolver import getAgentGoals_resolver
 
 query = ObjectType("Query")
 query.set_field("scenarios", getScenarios_resolver)
@@ -26,6 +31,8 @@ query.set_field("locations", getLocationResults_resolver)
 query.set_field("location", getLocation_resolver)
 query.set_field("agents", getAgentResults_resolver)
 query.set_field("agent", getAgent_resolver)
+query.set_field("item", getItem_resolver)
+query.set_field("goal", getGoal_resolver)
 
 scenarios = ObjectType("Scenario")
 scenarios.set_field("locations", getLocations_resolver)
@@ -35,9 +42,12 @@ scenarios.set_field("outsideAgents", getScenarioOutsideAgents_resolver)
 locations = ObjectType("Location")
 locations.set_field("agents", getLocationAgents_resolver)
 locations.set_field("allAgents", getLocationAllAgents_resolver)
+locations.set_field("items", getLocationItems_resolver)
 
 agents = ObjectType("Agent")
 agents.set_field("agentDescription", getAgentDescription_resolver)
+agents.set_field("inventory", getAgentItems_resolver)
+agents.set_field("goals", getAgentGoals_resolver)
 
 type_defs = load_schema_from_path("schema.graphql")
 schema = make_executable_schema(

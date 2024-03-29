@@ -27,4 +27,5 @@ class AgentModel(Document):
             "currentTime": self.currentTime,
             "status": self.status,
             "emoji": self.emoji,
+            "currentItem": self.currentItem
         }

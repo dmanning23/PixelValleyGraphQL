@@ -23,4 +23,8 @@ class AgentDescriptionModel(Document):
             "resizedIconFilename": self.resizedIconFilename,
             "chibiFilename": self.chibiFilename,
             "resizedChibiFilename": self.resizedChibiFilename,
+            "hair": self.hair,
+            "eyes": self.eyes,
+            "clothing": self.clothing,
+            "distinguishingFeatures": self.distinguishingFeatures
         }

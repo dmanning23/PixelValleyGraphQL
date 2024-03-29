@@ -38,6 +38,24 @@ type AgentResult {
     agent: Agent
 }
 
+type ItemResult {
+    success: Boolean!
+    errors: [String]
+    item: Item
+}
+
+type ItemsResult {
+    success: Boolean!
+    errors: [String]
+    items: [Item]
+}
+
+type GoalResult {
+    success: Boolean!
+    errors: [String]
+    goal: Goal
+}
+
 type Scenario {
     _id: ID!
     name: String!
@@ -63,6 +81,7 @@ type Location {
     agents: [Agent]
     allAgents: [Agent]
     locations: [Location]
+    items: [Item]
 }
 
 type Agent {
@@ -77,6 +96,8 @@ type Agent {
     status: String
     emoji: String
     agentDescription: AgentDescription
+    inventory: Item
+    goals: [Goal]
 }
 
 type AgentDescription {
@@ -87,6 +108,29 @@ type AgentDescription {
     resizedIconFilename: String
     chibiFilename: String
     resizedChibiFilename: String
+    hair: String
+    eyes: String
+    clothing: [String]
+    distinguishingFeatures: [String]
+}
+
+type Item {
+    _id: ID
+    name: String
+    description: String
+    canInteract: Boolean
+    canBePickedUp: Boolean
+    locationId: ID
+    usingCharacterId: ID
+    status: String
+    emoji: String
+}
+
+type Goal {
+    _id: ID
+    title: String
+    timeFrame: String
+    description: String
 }
 
 type Query {
@@ -96,4 +140,6 @@ type Query {
     location(id: ID!): LocationResult
     agents(scenarioId: ID, locationId: ID): AgentsResult
     agent(id: ID!): AgentResult
+    item(id:ID!): ItemResult
+    goal(id:ID!): GoalResult
 }
