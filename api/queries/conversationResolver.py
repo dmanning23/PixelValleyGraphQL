@@ -1,10 +1,10 @@
-from api.models.goalModel import GoalModel
+from api.models.conversationModel import ConversationModel
 
-def getGoalResults_resolver(obj, info, agentId=None):
+def getConversationResults_resolver(obj, info, agentId=None):
     try:
         payload = {
             "success": True,
-            "goals": getGoals_resolver(obj, info, agentId)
+            "conversations": getConversations_resolver(obj, info, agentId)
         }
     except Exception as error:
         payload = {
@@ -13,25 +13,25 @@ def getGoalResults_resolver(obj, info, agentId=None):
         }
     return payload
 
-def getGoals_resolver(obj, info, agentId=None):
+def getConversations_resolver(obj, info, agentId=None):
     #Check if this is coming from the Agent resolver
     if obj is not None:
         agentId = obj["_id"]
-    models = GoalModel.objects(agentId=agentId)
-    goals = [goal.to_dict() for goal in models]
-    return goals
+    models = ConversationModel.objects(agents=agentId)
+    conversations = [conversation.to_dict() for conversation in models]
+    return conversations
 
-def getGoal_resolver(obj, info, id):
+def getConversation_resolver(obj, info, id):
     try:
-        model = GoalModel.objects.get(id=id)
+        model = ConversationModel.objects.get(id=id)
         payload = {
             "success": True,
-            "goal": model.to_dict()
+            "conversation": model.to_dict()
         }
     except AttributeError:
         payload = {
             "success": False,
-            "errors": ["Goal matching {id} not found"]
+            "errors": ["Conversation matching {id} not found"]
         }
     except Exception as error:
         payload = {

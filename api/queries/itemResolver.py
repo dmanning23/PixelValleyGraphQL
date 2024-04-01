@@ -1,7 +1,4 @@
-
 from api.models.itemModel import ItemModel
-from api.models.locationModel import LocationModel
-from api.models.agentModel import AgentModel
 
 def getItemResults_resolver(obj, info, agentId=None, locationId=None):
     if locationId:

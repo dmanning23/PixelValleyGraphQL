@@ -56,6 +56,18 @@ type GoalResult {
     goal: Goal
 }
 
+type PlannedActivityResult {
+    success: Boolean!
+    errors: [String]
+    plannedActivity: PlannedActivity
+}
+
+type ConversationResult {
+    success: Boolean!
+    errors: [String]
+    conversation: Conversation
+}
+
 type Scenario {
     _id: ID!
     name: String!
@@ -98,6 +110,8 @@ type Agent {
     agentDescription: AgentDescription
     inventory: Item
     goals: [Goal]
+    plannedActivities: [PlannedActivity]
+    conversations: [Conversation]
 }
 
 type AgentDescription {
@@ -127,10 +141,35 @@ type Item {
 }
 
 type Goal {
-    _id: ID
+    _id: ID!
+    agentId: ID!
     title: String
     timeFrame: String
     description: String
+}
+
+type PlannedActivity {
+    _id: ID!
+    agentId: ID!
+    description: String
+    timeFrame: String
+    priority: Int
+    day: String
+    startDateTime: String
+    endDateTime: String
+}
+
+type Conversation {
+    _id: ID!
+    initiatingAgent: ID!
+    summary: String
+    agents: [ID]
+    dialogue: [Dialogue]
+}
+
+type Dialogue {
+    agentName: String
+    text: String
 }
 
 type Query {
@@ -140,6 +179,12 @@ type Query {
     location(id: ID!): LocationResult
     agents(scenarioId: ID, locationId: ID): AgentsResult
     agent(id: ID!): AgentResult
-    item(id:ID!): ItemResult
-    goal(id:ID!): GoalResult
+    #TODO: items
+    item(id: ID!): ItemResult
+    #TODO: goals
+    goal(id: ID!): GoalResult
+    #TODO: plannedActivities
+    plannedActivity(id: ID!): PlannedActivityResult
+    #TODO: conversations
+    conversation(id: ID!): ConversationResult
 }
