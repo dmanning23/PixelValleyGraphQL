@@ -2,21 +2,17 @@ from api.models.scenarioModel import ScenarioModel
 
 def getScenarios_resolver(obj, info):
     try:
-        print ("getScenarios_resolver")
         #get the scenario from mongodb
         models = [scenario.to_dict() for scenario in ScenarioModel.objects]
         payload = {
             "success": True,
             "scenarios": models
         }
-        print ("success")
     except Exception as error:
         payload = {
             "success": False,
             "errors": [str(error)]
         }
-        print ("error")
-        print (error)
     
     return payload
 
