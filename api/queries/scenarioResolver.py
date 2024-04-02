@@ -31,6 +31,6 @@ def getScenario_resolver(obj, info, id):
     except Exception as error:
         payload = {
             "success": False,
-            "errors": [str(error)]
+            "errors": [str(error), str(model)]
         }
     return payload
