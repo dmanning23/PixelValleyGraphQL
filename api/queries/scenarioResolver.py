@@ -2,6 +2,7 @@ from api.models.scenarioModel import ScenarioModel
 
 def getScenarios_resolver(obj, info):
     try:
+        print ("getScenarios_resolver")
         #get the scenario from mongodb
         models = [scenario.to_dict() for scenario in ScenarioModel.objects]
         payload = {
