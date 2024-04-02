@@ -1,4 +1,8 @@
 from api.models.plannedActivityModel import PlannedActivityModel
+from api.models.agentModel import AgentModel
+from api.models.scenarioModel import ScenarioModel
+from api.models.agentLocationModel import AgentLocationModel
+import datetime
 
 def getPlannedActivityResults_resolver(obj, info, agentId=None):
 
@@ -40,3 +44,26 @@ def getPlannedActivity_resolver(obj, info, id):
             "errors": [str(error)]
         }
     return payload
+
+def getCurrentPlannedActivity_resolver(obj, info, agentId=None):
+        if obj is not None:
+            agentId = obj["_id"]
+
+        #get the scenario
+        agentLocation = AgentLocationModel.objects.get(agentId=agentId)
+        scenario = ScenarioModel.objects.get(id=agentLocation.currentScenarioId)
+            
+        #get the currentTime
+        currentDateTime = scenario.currentDateTime;
+        currentDate = datetime.datetime.combine(currentDateTime.date(), datetime.time.min)
+
+        #Get all the planned activities, sorted by priority:
+        activities = PlannedActivityModel.objects(agentId = agentId, day = currentDate).order_by("-priority", "+startdatetime")
+        for activity in activities:
+            if activity.startdatetime <= currentDateTime <= activity.enddatetime:
+                return activity.to_dict()
+        
+        #This character is not busy right now!
+        result = PlannedActivityModel()
+        result.description = "Idle"
+        return result.to_dict()

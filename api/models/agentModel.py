@@ -10,6 +10,10 @@ class AgentModel(Document):
     status = StringField()
     emoji = StringField()
 
+    #TODO: scenarioID?
+    
+    #TODO: currentScenarioID?
+
     currentItem = EmbeddedDocumentField(ItemSubModel)
 
     #is the agent currently using the held item?

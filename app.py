@@ -25,6 +25,7 @@ from api.queries.goalResolver import getGoal_resolver
 from api.queries.goalResolver import getGoals_resolver
 from api.queries.plannedActivityResolver import getPlannedActivity_resolver
 from api.queries.plannedActivityResolver import getPlannedActivities_resolver
+from api.queries.plannedActivityResolver import getCurrentPlannedActivity_resolver
 from api.queries.conversationResolver import getConversation_resolver
 from api.queries.conversationResolver import getConversations_resolver
 
@@ -56,6 +57,7 @@ agents.set_field("inventory", getAgentItems_resolver)
 agents.set_field("goals", getGoals_resolver)
 agents.set_field("plannedActivities", getPlannedActivities_resolver)
 agents.set_field("conversations", getConversations_resolver)
+agents.set_field("currentActivity", getCurrentPlannedActivity_resolver)
 
 type_defs = load_schema_from_path("schema.graphql")
 schema = make_executable_schema(

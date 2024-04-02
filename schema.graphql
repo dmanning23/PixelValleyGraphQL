@@ -107,6 +107,7 @@ type Agent {
     currentTime: Int
     status: String
     emoji: String
+    currentActivity: PlannedActivity
     agentDescription: AgentDescription
     inventory: Item
     goals: [Goal]
