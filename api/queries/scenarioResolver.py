@@ -9,11 +9,15 @@ def getScenarios_resolver(obj, info):
             "success": True,
             "scenarios": models
         }
+        print ("success")
     except Exception as error:
         payload = {
             "success": False,
             "errors": [str(error)]
         }
+        print ("error")
+        print (error)
+    
     return payload
 
 def getScenario_resolver(obj, info, id):
