@@ -9,7 +9,6 @@ CORS(app)
 
 mongoUri = os.getenv("mongoUri")
 connect(host=mongoUri, db="pixelValley") #connect for mongoengine
-print(mongoUri)
 
 @app.route('/')
 def hello():
