@@ -5,7 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "streamlit debug",
+            "name": "Gunicorn",
+            "type": "python",
+            "request": "launch",
+            "module": "gunicorn",
+            "args": ["mywsgi:application"],
+            "justMyCode": true,
+        },
+        {
+            "name": "Flask Debug",
             "type": "python",
             "request": "launch",
             "module": "flask",

@@ -4,3 +4,4 @@ flask-cors
 mongoengine
 pymongo
 py-linq
+gunicorn
