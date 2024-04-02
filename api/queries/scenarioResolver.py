@@ -13,6 +13,7 @@ def getScenarios_resolver(obj, info):
             "success": False,
             "errors": [str(error)]
         }
+    
     return payload
 
 def getScenario_resolver(obj, info, id):
