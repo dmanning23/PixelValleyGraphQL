@@ -9,6 +9,8 @@ from api.queries.scenarioResolver import getScenario_resolver
 from api.queries.locationResolver import getLocationResults_resolver
 from api.queries.locationResolver import getLocations_resolver
 from api.queries.locationResolver import getLocation_resolver
+from api.queries.locationResolver import getParentLocation_resolver
+from api.queries.locationResolver import getChildLocations_resolver
 
 from api.queries.agentResolver import getScenarioAgents_resolver
 from api.queries.agentResolver import getScenarioOutsideAgents_resolver
@@ -17,14 +19,18 @@ from api.queries.agentResolver import getAgentResults_resolver
 from api.queries.agentResolver import getAgent_resolver
 from api.queries.agentResolver import getAgentDescription_resolver
 from api.queries.agentResolver import getLocationAllAgents_resolver
+
 from api.queries.itemResolver import getItem_resolver
 from api.queries.itemResolver import getLocationItems_resolver
 from api.queries.itemResolver import getAgentItems_resolver
+
 from api.queries.goalResolver import getGoal_resolver
 from api.queries.goalResolver import getGoals_resolver
+
 from api.queries.plannedActivityResolver import getPlannedActivity_resolver
 from api.queries.plannedActivityResolver import getPlannedActivities_resolver
 from api.queries.plannedActivityResolver import getCurrentPlannedActivity_resolver
+
 from api.queries.conversationResolver import getConversation_resolver
 from api.queries.conversationResolver import getConversations_resolver
 
@@ -49,6 +55,8 @@ locations = ObjectType("Location")
 locations.set_field("agents", getLocationAgents_resolver)
 locations.set_field("allAgents", getLocationAllAgents_resolver)
 locations.set_field("items", getLocationItems_resolver)
+locations.set_field("locations", getChildLocations_resolver)
+locations.set_field("parentLocation", getParentLocation_resolver)
 
 agents = ObjectType("Agent")
 agents.set_field("agentDescription", getAgentDescription_resolver)

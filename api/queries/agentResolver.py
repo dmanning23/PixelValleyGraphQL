@@ -98,3 +98,9 @@ def getAgentDescription_resolver(obj, info, agentId=None):
         agentId = obj["_id"]
     agentDescription = AgentDescriptionModel.objects.get(agentId=agentId)
     return  agentDescription.to_dict()
+
+def getAgentLocation_resolver(obj, info, agentId=None):
+    if obj is not None:
+        agentId = obj["_id"]
+    agentLocation = AgentLocationModel.objects.get(agentId=agentId)
+    return  agentLocation.to_dict()
