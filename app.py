@@ -1,5 +1,4 @@
-from ariadne import load_schema_from_path, make_executable_schema, \
-    graphql_sync, ObjectType
+from ariadne import graphql_sync
 from flask import request, jsonify
 from pixelValleyGraphQL import schema
 from ariadne.explorer import ExplorerGraphiQL
