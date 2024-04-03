@@ -83,7 +83,7 @@ type Scenario {
 type Location {
     _id: ID!
     scenarioId: ID!
-    parentLocationId: ID!
+    parentLocationId: ID
     name: String!
     description: String!
     imageFilename: String
@@ -94,6 +94,7 @@ type Location {
     allAgents: [Agent]
     locations: [Location]
     items: [Item]
+    parentLocation: Location
 }
 
 type Agent {
@@ -109,6 +110,7 @@ type Agent {
     emoji: String
     currentActivity: PlannedActivity
     agentDescription: AgentDescription
+    location: [AgentLocation]
     inventory: Item
     goals: [Goal]
     plannedActivities: [PlannedActivity]
@@ -127,6 +129,15 @@ type AgentDescription {
     eyes: String
     clothing: [String]
     distinguishingFeatures: [String]
+}
+
+type AgentLocation {
+    _id: ID!
+    agentId: ID!
+    homeScenarioId: ID!
+    currentScenarioId: ID!
+    locationId: ID
+    #TODO: get the Location 
 }
 
 type Item {

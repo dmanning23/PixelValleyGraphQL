@@ -1,4 +1,5 @@
 from api.models.locationModel import LocationModel
+from api.models.scenarioModel import ScenarioModel
 
 def getLocationResults_resolver(obj, info, scenarioId=None, parentLocationId=None):
     try:
@@ -20,6 +21,24 @@ def getLocations_resolver(obj, info, scenarioId=None, parentLocationId=None):
     models = LocationModel.objects(scenarioId=scenarioId, parentLocationId=parentLocationId)
     locations = [location.to_dict() for location in models]
     return locations
+
+def getChildLocations_resolver(obj, info):
+    #Check if this is coming from the Scenario resolver
+    if obj is not None:
+        parentLocationId = obj["_id"]
+    models = LocationModel.objects(parentLocationId=parentLocationId)
+    locations = [location.to_dict() for location in models]
+    return locations
+
+def getParentLocation_resolver(obj, info):
+    #Check if this is coming from the Scenario resolver
+    if obj is not None:
+        parentLocationId = obj["parentLocationId"]
+    if (parentLocationId is not None):
+        model = LocationModel.objects.get(id=parentLocationId)
+        return model.to_dict()
+    else:
+        return None
 
 def getLocation_resolver(obj, info, id):
     try:
