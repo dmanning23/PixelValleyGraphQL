@@ -1,13 +1,23 @@
-from api import app
 from ariadne import load_schema_from_path, make_executable_schema, \
     graphql_sync, ObjectType
-from minimal import PLAYGROUND_HTML
 from flask import request, jsonify
 from pixelValleyGraphQL import schema
+from ariadne.explorer import ExplorerGraphiQL
+from flask import Flask
+from flask_cors import CORS
+from mongoengine import *
+from keys import mongoUri
+
+connect(host=mongoUri, db="pixelValley") #connect for mongoengine
+
+app = Flask(__name__)
+CORS(app)
+
+explorer_html = ExplorerGraphiQL().html(None)
 
 @app.route("/graphql", methods=["GET"])
 def graphql_playground():
-    return PLAYGROUND_HTML, 200
+    return explorer_html, 200
 
 @app.route("/graphql", methods=["POST"])
 def graphql_server():
@@ -20,3 +30,6 @@ def graphql_server():
     )
     status_code = 200 if success else 400
     return jsonify(result), status_code
+
+if __name__ == "main":
+    app.run(debug=True)
