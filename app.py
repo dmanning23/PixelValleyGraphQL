@@ -5,10 +5,6 @@ from pixelValleyGraphQL import schema
 from ariadne.explorer import ExplorerGraphiQL
 from flask import Flask
 from flask_cors import CORS
-from mongoengine import *
-from keys import mongoUri
-
-connect(host=mongoUri, db="pixelValley") #connect for mongoengine
 
 app = Flask(__name__)
 CORS(app)
