@@ -14,7 +14,7 @@ def getConversationResults_resolver(obj, info, agentId=None):
     return payload
 
 def getConversations_resolver(obj, info, agentId=None):
-    #Check if this is coming from the Agent resolver
+    #TODO: add paging to this resolver
     if obj is not None:
         agentId = obj["_id"]
     models = ConversationModel.objects(agents=agentId)
