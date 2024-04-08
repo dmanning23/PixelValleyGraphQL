@@ -2,6 +2,7 @@ from api.models.agentModel import AgentModel
 from api.models.agentLocationModel import AgentLocationModel
 from api.models.agentDescriptionModel import AgentDescriptionModel
 from api.models.locationModel import LocationModel
+from api.models.conversationModel import ConversationModel
 
 def getAgentResults_resolver(obj, info, scenarioId=None, locationId=None):
     if locationId:
@@ -43,7 +44,7 @@ def getScenarioOutsideAgents_resolver(obj, info, scenarioId=None):
     return agents
 
 def getLocationAgents_resolver(obj, info, locationId=None):
-    #Check if this is coming from the Location resolver
+    #TODO: this info is already stored in the obj?
     if obj is not None:
         locationId = obj["_id"]
     agentLocations = AgentLocationModel.objects(locationId=locationId)
@@ -74,6 +75,21 @@ def getLocationAllAgents_resolver(obj, info, locationId=None):
     agents = [agent.to_dict() for agent in models]
     return agents
 
+def getConversationInitiatingAgent_resolver(obj, info, agentId=None):
+    if obj is not None:
+        agentId = obj["initiatingAgentId"]
+    model = AgentModel.objects.get(id=agentId)
+    return model.to_dict()
+
+def getConversationAgents_resolver(obj, info, conversationId=None):
+    if obj is not None:
+        agentIds = obj["agentIds"]
+    models = []
+    for agentId in agentIds:
+        models.append(AgentModel.objects.get(id=agentId))
+    agents = [agent.to_dict() for agent in models]
+    return agents
+
 def getAgent_resolver(obj, info, id):
     try:
         model = AgentModel.objects.get(id=id)
@@ -99,8 +115,8 @@ def getAgentDescription_resolver(obj, info, agentId=None):
     agentDescription = AgentDescriptionModel.objects.get(agentId=agentId)
     return  agentDescription.to_dict()
 
-def getAgentLocation_resolver(obj, info, agentId=None):
+def getAgentLocation_resolver(obj, info):
     if obj is not None:
         agentId = obj["_id"]
-    agentLocation = AgentLocationModel.objects.get(agentId=agentId)
-    return  agentLocation.to_dict()
+    model = AgentLocationModel.objects.get(agentId=agentId)
+    return model.to_dict()

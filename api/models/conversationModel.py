@@ -25,9 +25,9 @@ class ConversationModel(Document):
     def to_dict(self):
         return {
             "_id": self.id,
-            "initiatingAgent": self.initiatingAgent,
+            "initiatingAgentId": self.initiatingAgent,
             "reasoning": self.reasoning,
             "summary": self.summary,
-            "agents": self.agents,
+            "agentIds": self.agents,
             "dialogue": self.dialogue
         }

@@ -99,8 +99,6 @@ type Location {
 
 type Agent {
     _id: ID!
-    scenarioId: ID!
-    locationId: ID
     name: String!
     age: Int
     gender: String!
@@ -110,7 +108,7 @@ type Agent {
     emoji: String
     currentActivity: PlannedActivity
     agentDescription: AgentDescription
-    location: [AgentLocation]
+    agentLocation: AgentLocation
     inventory: Item
     goals: [Goal]
     plannedActivities: [PlannedActivity]
@@ -137,7 +135,8 @@ type AgentLocation {
     homeScenarioId: ID!
     currentScenarioId: ID!
     locationId: ID
-    #TODO: get the Location 
+    location: Location
+    scenario: Scenario
 }
 
 type Item {
@@ -173,9 +172,11 @@ type PlannedActivity {
 
 type Conversation {
     _id: ID!
-    initiatingAgent: ID!
+    initiatingAgentId: ID!
+    initiatingAgent: Agent
     summary: String
-    agents: [ID]
+    agentIds: [ID]
+    agents: [Agent]
     dialogue: [Dialogue]
 }
 

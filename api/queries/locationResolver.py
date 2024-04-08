@@ -39,6 +39,12 @@ def getParentLocation_resolver(obj, info):
         return model.to_dict()
     else:
         return None
+    
+def getAgentLocationLocation_resolver(obj, info, agentId=None):
+    if obj is not None:
+        locationId = obj["locationId"]
+    location = LocationModel.objects.get(id=locationId)
+    return  location.to_dict()
 
 def getLocation_resolver(obj, info, id):
     try:

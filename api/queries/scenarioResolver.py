@@ -16,6 +16,12 @@ def getScenarios_resolver(obj, info):
     
     return payload
 
+def getAgentLocationScenario_resolver(obj, info, agentId=None):
+    if obj is not None:
+        scenarioId = obj["currentScenarioId"]
+    scenario = ScenarioModel.objects.get(id=scenarioId)
+    return  scenario.to_dict()
+
 def getScenario_resolver(obj, info, id):
     try:
         #get the scenario from mongodb
