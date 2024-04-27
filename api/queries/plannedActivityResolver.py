@@ -18,11 +18,24 @@ def getPlannedActivityResults_resolver(obj, info, agentId=None):
         }
     return payload
 
+def _getTodaysPlannedActivities(agentId):
+     #get the scenario
+    agentLocation = AgentLocationModel.objects.get(agentId=agentId)
+    scenario = ScenarioModel.objects.get(id=agentLocation.currentScenarioId)
+
+    #get the currentTime
+    currentDateTime = scenario.currentDateTime;
+    currentDate = datetime.datetime.combine(currentDateTime.date(), datetime.time.min)
+
+    #Get all the planned activities, sorted by priority:
+    return PlannedActivityModel.objects(agentId = agentId, day = currentDate).order_by("-priority", "+startdatetime")
+
 def getPlannedActivities_resolver(obj, info, agentId=None):
     #Check if this is coming from the Agent resolver
     if obj is not None:
         agentId = obj["_id"]
-    models = PlannedActivityModel.objects(agentId=agentId)
+
+    models = _getTodaysPlannedActivities(agentId=agentId)
     plannedActivities = [plannedActivity.to_dict() for plannedActivity in models]
     return plannedActivities
 
@@ -49,16 +62,12 @@ def getCurrentPlannedActivity_resolver(obj, info, agentId=None):
         if obj is not None:
             agentId = obj["_id"]
 
-        #get the scenario
         agentLocation = AgentLocationModel.objects.get(agentId=agentId)
         scenario = ScenarioModel.objects.get(id=agentLocation.currentScenarioId)
-            
-        #get the currentTime
-        currentDateTime = scenario.currentDateTime;
-        currentDate = datetime.datetime.combine(currentDateTime.date(), datetime.time.min)
+        currentDateTime = scenario.currentDateTime
 
         #Get all the planned activities, sorted by priority:
-        activities = PlannedActivityModel.objects(agentId = agentId, day = currentDate).order_by("-priority", "+startdatetime")
+        activities = _getTodaysPlannedActivities(agentId=agentId)
         for activity in activities:
             if activity.startdatetime <= currentDateTime <= activity.enddatetime:
                 return activity.to_dict()
