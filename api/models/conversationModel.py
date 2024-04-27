@@ -12,6 +12,12 @@ class DialogueModel(EmbeddedDocument):
 
 class ConversationModel(Document):
 
+    #The scenario where the chat is taking place
+    scenarioId = ObjectIdField()
+
+    #The location where the chat is taking place
+    locationId = ObjectIdField()
+
     #The person who initiated the conversation
     initiatingAgent = ObjectIdField()
 

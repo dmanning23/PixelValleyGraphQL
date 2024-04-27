@@ -172,7 +172,9 @@ type PlannedActivity {
 
 type Conversation {
     _id: ID!
-    initiatingAgentId: ID!
+    scenarioId: ID
+    locationId: ID
+    initiatingAgentId: ID
     initiatingAgent: Agent
     summary: String
     agentIds: [ID]

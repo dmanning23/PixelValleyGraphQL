@@ -78,8 +78,12 @@ def getLocationAllAgents_resolver(obj, info, locationId=None):
 def getConversationInitiatingAgent_resolver(obj, info, agentId=None):
     if obj is not None:
         agentId = obj["initiatingAgentId"]
-    model = AgentModel.objects.get(id=agentId)
-    return model.to_dict()
+
+    if (agentId is not None):
+        model = AgentModel.objects.get(id=agentId)
+        return model.to_dict()
+    else:
+        return None
 
 def getConversationAgents_resolver(obj, info, conversationId=None):
     if obj is not None:
