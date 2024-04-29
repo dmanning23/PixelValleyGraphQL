@@ -39,6 +39,8 @@ from api.queries.plannedActivityResolver import getCurrentPlannedActivity_resolv
 from api.queries.conversationResolver import getConversation_resolver
 from api.queries.conversationResolver import getConversations_resolver
 
+#from api.mutations.chatResolver import chatRequest_mutation
+
 query = ObjectType("Query")
 query.set_field("scenarios", getScenarios_resolver)
 query.set_field("scenario", getScenario_resolver)

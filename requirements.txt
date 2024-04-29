@@ -5,3 +5,4 @@ mongoengine
 pymongo
 py-linq
 gunicorn
+requests
