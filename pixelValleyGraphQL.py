@@ -39,6 +39,8 @@ from api.queries.plannedActivityResolver import getCurrentPlannedActivity_resolv
 from api.queries.conversationResolver import getConversation_resolver
 from api.queries.conversationResolver import getConversations_resolver
 
+from api.mutations.chatResolver import chatRequest_mutation
+
 query = ObjectType("Query")
 query.set_field("scenarios", getScenarios_resolver)
 query.set_field("scenario", getScenario_resolver)
@@ -80,7 +82,10 @@ agentLocations = ObjectType("AgentLocation")
 agentLocations.set_field("location", getAgentLocationLocation_resolver)
 agentLocations.set_field("scenario", getAgentLocationScenario_resolver)
 
+mutation = ObjectType("Mutation")
+mutation.set_field("chatRequest", chatRequest_mutation)
+
 type_defs = load_schema_from_path("schema.graphql")
 schema = make_executable_schema(
-    type_defs, [ query, scenarios, locations, agents, conversations, agentLocations ]
+    type_defs, [ query, scenarios, locations, agents, conversations, agentLocations, mutation ]
 )

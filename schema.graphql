@@ -1,5 +1,6 @@
 schema {
     query: Query
+    mutation: Mutation
 }
 
 type ScenariosResult {
@@ -180,6 +181,7 @@ type Conversation {
     agentIds: [ID]
     agents: [Agent]
     dialogue: [Dialogue]
+    reasoning: String
 }
 
 type Dialogue {
@@ -202,4 +204,8 @@ type Query {
     plannedActivity(id: ID!): PlannedActivityResult
     #TODO: conversations
     conversation(id: ID!): ConversationResult
+}
+
+type Mutation {
+    chatRequest(scenarioId: ID!, locationId: ID, agentIds: [ID!]!): ConversationResult
 }
