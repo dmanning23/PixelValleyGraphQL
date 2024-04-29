@@ -181,6 +181,7 @@ type Conversation {
     agentIds: [ID]
     agents: [Agent]
     dialogue: [Dialogue]
+    reasoning: String
 }
 
 type Dialogue {
