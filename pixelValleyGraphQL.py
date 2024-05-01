@@ -6,13 +6,14 @@ from ariadne.wsgi import GraphQL
 from api.queries.scenarioResolver import getScenarios_resolver
 from api.queries.scenarioResolver import getScenario_resolver
 from api.queries.scenarioResolver import getAgentLocationScenario_resolver
+from api.queries.scenarioResolver import getScenarioFromId_resolver
 
 from api.queries.locationResolver import getLocationResults_resolver
 from api.queries.locationResolver import getLocations_resolver
 from api.queries.locationResolver import getLocation_resolver
 from api.queries.locationResolver import getParentLocation_resolver
 from api.queries.locationResolver import getChildLocations_resolver
-from api.queries.locationResolver import getAgentLocationLocation_resolver
+from api.queries.locationResolver import getLocationFromId_resolver
 
 from api.queries.agentResolver import getScenarioAgents_resolver
 from api.queries.agentResolver import getScenarioOutsideAgents_resolver
@@ -77,9 +78,11 @@ agents.set_field("agentLocation", getAgentLocation_resolver)
 conversations = ObjectType("Conversation")
 conversations.set_field("initiatingAgent", getConversationInitiatingAgent_resolver)
 conversations.set_field("agents", getConversationAgents_resolver)
+conversations.set_field("scenario", getScenarioFromId_resolver)
+conversations.set_field("location", getLocationFromId_resolver)
 
 agentLocations = ObjectType("AgentLocation")
-agentLocations.set_field("location", getAgentLocationLocation_resolver)
+agentLocations.set_field("location", getLocationFromId_resolver)
 agentLocations.set_field("scenario", getAgentLocationScenario_resolver)
 
 mutation = ObjectType("Mutation")

@@ -40,15 +40,14 @@ def getParentLocation_resolver(obj, info):
     else:
         return None
     
-def getAgentLocationLocation_resolver(obj, info, agentId=None):
-    if obj is not None:
+def getLocationFromId_resolver(obj, info):
+    if obj is not None and "locationId" in obj:
         locationId = obj["locationId"]
-        
-    if (locationId is not None):
-        location = LocationModel.objects.get(id=locationId)
-        return  location.to_dict()
-    else:
-        return None
+        if (locationId is not None):
+            location = LocationModel.objects.get(id=locationId)
+            return  location.to_dict()
+
+    return None
 
 def getLocation_resolver(obj, info, id):
     try:
