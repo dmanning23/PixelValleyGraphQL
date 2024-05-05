@@ -1,11 +1,11 @@
 from api.models.conversationModel import ConversationModel
-from keys import chatApiUrl
+#from keys import chatApiUrl
 import requests
 import os
 
 def chatRequest_mutation(obj, info, scenarioId, locationId, agentIds):
     try:
-        #chatApiUrl = os.getenv("chatApiUrl")
+        chatApiUrl = os.getenv("chatApiUrl")
         url = f"{chatApiUrl}chatRequest"
         data = {"scenarioId": scenarioId,
                 "locationId": locationId,
@@ -35,7 +35,7 @@ def chatRequest_mutation(obj, info, scenarioId, locationId, agentIds):
 
 def chatResponse_mutation(obj, info, conversationId, playerQuestion):
     try:
-        #chatApiUrl = os.getenv("chatApiUrl")
+        chatApiUrl = os.getenv("chatApiUrl")
         url = f"{chatApiUrl}chatResponse"
         data = {"conversationId": conversationId,
                 "playerQuestion": playerQuestion }
