@@ -69,6 +69,12 @@ type ConversationResult {
     conversation: Conversation
 }
 
+type DialogueResult {
+    success: Boolean!
+    errors: [String]
+    dialogue: [Dialogue]
+}
+
 type Scenario {
     _id: ID!
     name: String!
@@ -210,4 +216,5 @@ type Query {
 
 type Mutation {
     chatRequest(scenarioId: ID!, locationId: ID, agentIds: [ID!]!): ConversationResult
+    chatResponse(conversationId: ID!, playerQuestion: String): DialogueResult
 }
