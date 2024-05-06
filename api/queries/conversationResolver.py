@@ -17,7 +17,7 @@ def getConversations_resolver(obj, info, agentId=None):
     #TODO: add paging to this resolver
     if obj is not None:
         agentId = obj["_id"]
-    models = ConversationModel.objects(agents=agentId)
+    models = ConversationModel.objects(agents=agentId, initiatingAgent__exists=True)
     conversations = [conversation.to_dict() for conversation in models]
     return conversations
 
