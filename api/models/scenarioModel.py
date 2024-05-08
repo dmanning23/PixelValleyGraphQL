@@ -15,7 +15,7 @@ class ScenarioModel(Document):
             "_id": self.id,
             "name": self.name,
             "description": self.description,
-            "currentDateTime": str(self.currentDateTime.strftime('%d-%m-%Y')),
+            "currentDateTime": str(self.currentDateTime.strftime('%I:%M %p %d-%m-%Y')),
             "seed": self.seed,
             "imageFilename": self.imageFilename,
         }
