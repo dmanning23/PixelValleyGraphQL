@@ -75,6 +75,18 @@ type DialogueResult {
     dialogue: [Dialogue]
 }
 
+type JournalEntriesResult {
+    success: Boolean!
+    errors: [String]
+    journalEntry: [JournalEntry]
+}
+
+type JournalEntryResult {
+    success: Boolean!
+    errors: [String]
+    journalEntry: JournalEntry
+}
+
 type Scenario {
     _id: ID!
     name: String!
@@ -120,6 +132,7 @@ type Agent {
     goals: [Goal]
     plannedActivities: [PlannedActivity]
     conversations: [Conversation]
+    journalEntries: [JournalEntry]
 }
 
 type AgentDescription {
@@ -197,6 +210,14 @@ type Dialogue {
     text: String
 }
 
+type JournalEntry {
+    _id: ID!
+    agentId: ID!
+    dateTime: String
+    summary: String
+    text: String
+}
+
 type Query {
     scenarios: ScenariosResult
     scenario(id: ID!): ScenarioResult
@@ -212,6 +233,7 @@ type Query {
     plannedActivity(id: ID!): PlannedActivityResult
     #TODO: conversations
     conversation(id: ID!): ConversationResult
+    journalEntry(id: ID!): JournalEntryResult
 }
 
 type Mutation {

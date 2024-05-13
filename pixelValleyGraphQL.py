@@ -43,6 +43,9 @@ from api.queries.conversationResolver import getConversations_resolver
 from api.mutations.chatResolver import chatRequest_mutation
 from api.mutations.chatResolver import chatResponse_mutation
 
+from api.queries.journalEntryResolver import getJournalEntries_resolver
+from api.queries.journalEntryResolver import getJournalEntry_resolver
+
 query = ObjectType("Query")
 query.set_field("scenarios", getScenarios_resolver)
 query.set_field("scenario", getScenario_resolver)
@@ -54,6 +57,7 @@ query.set_field("item", getItem_resolver)
 query.set_field("goal", getGoal_resolver)
 query.set_field("plannedActivity", getPlannedActivity_resolver)
 query.set_field("conversation", getConversation_resolver)
+query.set_field("journalEntry", getJournalEntry_resolver)
 
 scenarios = ObjectType("Scenario")
 scenarios.set_field("locations", getLocations_resolver)
@@ -75,6 +79,7 @@ agents.set_field("plannedActivities", getPlannedActivities_resolver)
 agents.set_field("conversations", getConversations_resolver)
 agents.set_field("currentActivity", getCurrentPlannedActivity_resolver)
 agents.set_field("agentLocation", getAgentLocation_resolver)
+agents.set_field("journalEntries", getJournalEntries_resolver)
 
 conversations = ObjectType("Conversation")
 conversations.set_field("initiatingAgent", getConversationInitiatingAgent_resolver)
