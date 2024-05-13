@@ -10,7 +10,7 @@ class JournalEntryModel(Document):
         return {
             "_id": self.id,
             "agentId": self.agentId,
-            "dateTime": self.dateTime,
+            "dateTime": str(self.dateTime.strftime('%A, %B %d, %Y')),
             "summary": self.summary,
             "text": self.text,
         }
