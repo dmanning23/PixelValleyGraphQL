@@ -4,7 +4,7 @@ def getJournalEntryResults_resolver(obj, info, agentId=None):
     try:
         payload = {
             "success": True,
-            "jounralEntries": getJournalEntries_resolver(obj, info, agentId)
+            "journalEntries": getJournalEntries_resolver(obj, info, agentId)
         }
     except Exception as error:
         payload = {

@@ -46,6 +46,14 @@ from api.mutations.chatResolver import chatResponse_mutation
 from api.queries.journalEntryResolver import getJournalEntries_resolver
 from api.queries.journalEntryResolver import getJournalEntry_resolver
 
+from api.queries.newspaperResolver import getNewspaper_resolver
+from api.queries.newspaperResolver import getNewspapers_resolver
+from api.queries.newspaperResolver import getNewspaperResults_resolver
+
+from api.queries.editionResolver import getEditionsResult_resolver
+from api.queries.editionResolver import getEdition_resolver
+from api.queries.editionResolver import getEditions_resolver
+
 query = ObjectType("Query")
 query.set_field("scenarios", getScenarios_resolver)
 query.set_field("scenario", getScenario_resolver)
@@ -58,11 +66,19 @@ query.set_field("goal", getGoal_resolver)
 query.set_field("plannedActivity", getPlannedActivity_resolver)
 query.set_field("conversation", getConversation_resolver)
 query.set_field("journalEntry", getJournalEntry_resolver)
+query.set_field("newspapers", getNewspaperResults_resolver)
+query.set_field("newspaper", getNewspaper_resolver)
+query.set_field("editions", getEditionsResult_resolver)
+query.set_field("edition", getEdition_resolver)
 
 scenarios = ObjectType("Scenario")
 scenarios.set_field("locations", getLocations_resolver)
 scenarios.set_field("agents", getScenarioAgents_resolver)
 scenarios.set_field("outsideAgents", getScenarioOutsideAgents_resolver)
+scenarios.set_field("newspapers", getNewspapers_resolver)
+
+newspapers = ObjectType("Newspaper")
+newspapers.set_field("editions", getEditions_resolver)
 
 locations = ObjectType("Location")
 locations.set_field("agents", getLocationAgents_resolver)
@@ -97,5 +113,5 @@ mutation.set_field("chatResponse", chatResponse_mutation)
 
 type_defs = load_schema_from_path("schema.graphql")
 schema = make_executable_schema(
-    type_defs, [ query, scenarios, locations, agents, conversations, agentLocations, mutation ]
+    type_defs, [ query, scenarios, locations, agents, conversations, agentLocations, newspapers, mutation ]
 )

@@ -87,6 +87,30 @@ type JournalEntryResult {
     journalEntry: JournalEntry
 }
 
+type NewspapersResult {
+    success: Boolean!
+    errors: [String]
+    newspapers: [Newspaper]
+}
+
+type NewspaperResult {
+    success: Boolean!
+    errors: [String]
+    newspaper: Newspaper
+}
+
+type EditionsResult {
+    success: Boolean!
+    errors: [String]
+    editions: [Edition]
+}
+
+type EditionResult {
+    success: Boolean!
+    errors: [String]
+    edition: Edition
+}
+
 type Scenario {
     _id: ID!
     name: String!
@@ -97,6 +121,7 @@ type Scenario {
     locations: [Location]
     agents: [Agent]
     outsideAgents: [Agent]
+    newspapers: [Newspaper]
 }
 
 type Location {
@@ -218,6 +243,26 @@ type JournalEntry {
     text: String
 }
 
+type Newspaper {
+    _id: ID!
+    scenarioId: ID
+    name: String
+    description: String
+    editions: [Edition]
+}
+
+type Edition {
+    _id: ID!
+    newspaperId: ID
+    date: String
+    articles: [Article]
+}
+
+type Article {
+    headline: String
+    body: String
+}
+
 type Query {
     scenarios: ScenariosResult
     scenario(id: ID!): ScenarioResult
@@ -233,7 +278,12 @@ type Query {
     plannedActivity(id: ID!): PlannedActivityResult
     #TODO: conversations
     conversation(id: ID!): ConversationResult
+    #TODO: journal entries
     journalEntry(id: ID!): JournalEntryResult
+    newspapers(scenarioId: ID!): NewspapersResult
+    newspaper(id: ID!): NewspaperResult
+    editions(newspaperId: ID!) : EditionsResult
+    edition(id: ID!) : EditionResult
 }
 
 type Mutation {
