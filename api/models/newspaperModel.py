@@ -5,6 +5,7 @@ class NewspaperModel(Document):
     scenarioId = ObjectIdField()
     name = StringField()
     description = StringField()
+    dayOfWeek = IntField()
 
     def to_dict(self):
         return {
@@ -12,6 +13,7 @@ class NewspaperModel(Document):
             "scenarioId": self.scenarioId,
             "name": self.name,
             "description": self.description,
+            "dayOfWeek": self.dayOfWeek
         }
 
 class ArticleModel(EmbeddedDocument):
